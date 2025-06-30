@@ -2,6 +2,8 @@ import Search from "./Search";
 import {useEffect, useState} from "react";
 import {data} from "autoprefixer";
 import LoadingCard from "./LoadingCard";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 
 export default function BigCard() {
     const defaultProjects = [
@@ -23,6 +25,11 @@ export default function BigCard() {
         loadStatus: 0,
     });
 
+    /**
+     * Mocking axios.
+     * TODO: Delete this when in real case usage
+     * @returns {Promise<unknown>}
+     */
     const mockAxiosProjects = () => {
         const projects = [
             {
@@ -95,8 +102,10 @@ export default function BigCard() {
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (Math.random() < 0.5) {
-                    resolve(projects);
+                if (Math.random() < 0.8) {
+                    resolve({
+                        data: projects
+                    });
                 } else {
                     reject(new Error('Fetch failed'));
                 }
@@ -114,9 +123,9 @@ export default function BigCard() {
 
         // TODO: This is a mock. Change to axios later
         mockAxiosProjects()
-            .then((projects) => {
+            .then((res) => {
                 setProjects(() => ({
-                    projects,
+                    projects: res.data,
                     loadStatus: 1,
                 }));
             })
@@ -138,27 +147,28 @@ export default function BigCard() {
         <div className="">
             <div className="p-40 rounded-lg shadow-lg">
                 <div className="flex flex-grow">
-                    <div className="basis-3/4">
+                    <div className="basis-5/6">
                         <div className="mb-3">
-                            <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-                                <input
-                                    type="search"
-                                    className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    aria-describedby="button-addon3"/>
-
-                                <button
-                                    className="relative z-[2] rounded-r border-2 border-primary px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-                                    type="button"
-                                    id="button-addon3">
-                                    Search
-                                </button>
-                            </div>
+                            <form>
+                                <div className="inline-flex rounded-full overflow-hidden bg-gray-200 w-full">
+                                    <div className="py-1 pl-3 pr-2">
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                    </div>
+                                    <input
+                                        className="bg-transparent w-full outline-none px-1"
+                                        placeholder="Cari judul proyek akhir"
+                                    ></input>
+                                    <button
+                                        className="bg-gray-400 px-3 py-1"
+                                    >
+                                        Cari
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div className="basis-1/4">
-                        <div className="space-y-2">
+                    <div className="basis-1/6">
+                        <div className="">
                             {/*Button trigger vertically centered scrollable modal*/}
                             <Search />
                         </div>
@@ -277,10 +287,10 @@ export default function BigCard() {
                 )}
 
                 {projects.loadStatus === 1 && (
-                    <div className="grid grid-cols-4 gap-4 mt-32">
+                    <div className="grid grid-cols-3 gap-4 mt-32">
                         {
                             projects.projects.map((p) => (
-                                <div key={p.id} className="max-w-sm rounded overflow-hidden shadow-lg">
+                                <div key={p.id} className="max-w-sm rounded overflow-hidden shadow-lg glass">
                                     <a href="/detailproject">
                                         <img className="w-full" src={p.photo} alt="Sunset in the mountains" />
                                     </a>
@@ -292,9 +302,11 @@ export default function BigCard() {
                                     </div>
                                     <div className="px-6 pt-4 pb-2">
                                         {
-                                            p.technologies.map((t) => (
-                                                <span key={t.id} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{t.name}</span>
-                                            ))
+                                            !!p.technologies
+                                                ? p.technologies.map((t) => (
+                                                    <span key={t.id} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{t.name}</span>
+                                                ))
+                                                : null
                                         }
                                     </div>
                                 </div>
