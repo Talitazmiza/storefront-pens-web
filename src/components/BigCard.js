@@ -291,7 +291,7 @@ export default function BigCard() {
                         {
                             projects.projects.map((p) => (
                                 <div key={p.id} className="max-w-sm rounded overflow-hidden shadow-lg glass">
-                                    <a href="/detailproject">
+                                    <a href={`/detailproject/${p.id}`}>
                                         <img className="w-full" src={p.photo} alt="Sunset in the mountains" />
                                     </a>
                                     <div className="px-6 py-4">

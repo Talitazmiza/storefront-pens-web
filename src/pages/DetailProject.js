@@ -2,8 +2,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
 import LoadingCard from "../components/LoadingCard";
+import {useParams} from "react-router-dom";
 
 export default function DetailProject() {
+    const { id } = useParams();
+    const projectId = id || '123';
+
     const defaultProject = {
         id: '',
         title: '',
@@ -81,6 +85,8 @@ export default function DetailProject() {
             project: defaultProject,
             loadStatus: 0,
         }))
+
+        // TODO: Change this using axios. And don't forget projectId defined in useParams :D
         mockAxiosDetail()
             .then(res => {
                 setDetail(() => ({
