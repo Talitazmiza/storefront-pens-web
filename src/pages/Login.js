@@ -1,18 +1,33 @@
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import {useDispatch, useSelector} from "react-redux";
+import {setUser} from "../redux/userSlice";
 
 export default function Login() {
     const [login, setLogin] = useState({
         username: '',
         password: ''
     });
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const doLogin = (e) => {
+        console.log(user);
         e.preventDefault();
         // TODO: Axios login here and then set the token
+
+        dispatch(setUser({
+            id: 123,
+            username: 'bulbblubbulb',
+            name: 'Hello World',
+        }));
+
+        navigate('/home');
     };
+
 
     return (
         <div className="h-screen grid grid-cols-3 gap-4">

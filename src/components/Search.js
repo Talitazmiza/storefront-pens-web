@@ -3,7 +3,7 @@ import React from "react";
 export default function Search() {
     return (
         <div>
-            <button className="bg-gray-400 px-3 py-1 rounded-full" onClick={()=>document.getElementById('my_modal_1').showModal()}>Advanced Search</button>
+            <button className="bg-gray-400 px-3 py-1 rounded-full whitespace-nowrap" onClick={()=>document.getElementById('my_modal_1').showModal()}>Advanced Search</button>
             <dialog id="my_modal_1" className="modal rounded-lg">
                 <div>
                     <div className="modal-box">

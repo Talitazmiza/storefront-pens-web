@@ -145,7 +145,7 @@ export default function BigCard() {
 
     return (
         <div className="">
-            <div className="p-40 rounded-lg shadow-lg">
+            <div className="py-20 px-8 lg:p-40 rounded-lg shadow-lg">
                 <div className="flex flex-grow">
                     <div className="basis-5/6">
                         <div className="mb-3">

@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+import {useSelector} from "react-redux";
 
 export default function Header() {
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -7,6 +8,8 @@ export default function Header() {
     const toggleDialog = () => {
         setDialogOpen(!dialogOpen);
     }
+
+    const user = useSelector(state => state.user);
 
     return (
         <nav className="flex justify-between flex-wrap bg-gray-100 p-6">
@@ -21,7 +24,7 @@ export default function Header() {
                             <MenuButton
                                 className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                             >
-                                John Doe
+                                {user.name}
                                 <svg className="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                                      aria-hidden="true">
                                     <path fillRule="evenodd"

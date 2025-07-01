@@ -2,9 +2,94 @@ import Sidebar from "../../components/Sidebar";
 import AddStudent from "./dashboard-student/add-student";
 import EditStudent from "./dashboard-student/edit-student";
 import DeleteStudent from "./dashboard-student/delete-student";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import LoadingCard from "../../components/LoadingCard";
 
 export default function DashboardStudent() {
+    const [students, setStudent] = useState({
+        students: [
+            {
+                name: 'Toimul Setyo Andri',
+                nrp: '2103197141',
+                email: 'toimulsetyo@gmail.com',
+                title: 'APLIKASI SURVEY ONLINE MENGGUNAKAN METODE COLLABORATIVE FILTERING',
+                status: 'Inactive',
+            },
+        ],
+        loadStatus: 0,
+    });
+
+    const mockGetStudents = () => {
+        const temp = [
+            {
+                name: 'Sally Kartika Sari',
+                nrp: '3120550010',
+                email: 'sally@gmail.com',
+                title: 'SISTEM E-CATERING (STUDI KASUS DI JN RESTO)',
+                status: 'Active',
+            },
+            {
+                name: 'Shofi Widuri',
+                nrp: '2103197016',
+                email: 'shofi@gmail.com',
+                title: 'APLIKASI KOMUNITAS YUK NGAJI MOJOKERTO BERBASIS WEB DAN MOBILE',
+                status: 'Active',
+            },
+            {
+                name: 'Alhamdi Ferdiawan Bahri',
+                nrp: '3120550056',
+                email: 'alhamdi@gmail.com',
+                title: 'APLIKASI PENCATATAN KEUANGAN DI SWALAYAN EL-MALIK SUMENEP',
+                status: 'Inactive',
+            },
+            {
+                name: 'Mika Handayani',
+                nrp: '3120550006',
+                email: 'mika@gmail.com',
+                title: 'SISTEM INFORMASI PENYEWAAN GEDUNG PADA GEDUNG SERBAGUNA SUKO BERBASIS WEB',
+                status: 'Active',
+            },
+            {
+                name: 'Toimul Setyo Andri',
+                nrp: '2103197141',
+                email: 'toimulsetyo@gmail.com',
+                title: 'APLIKASI SURVEY ONLINE MENGGUNAKAN METODE COLLABORATIVE FILTERING',
+                status: 'Inactive',
+            },
+        ];
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (Math.random() < 0.8) {
+                    resolve({
+                        data: temp
+                    });
+                } else {
+                    reject(new Error('Fetch failed'));
+                }
+            }, 2000);
+        });
+    }
+
+    const loadStudents = () => {
+        mockGetStudents()
+            .then(res => {
+                setStudent(() => ({
+                    students: res.data,
+                    loadStatus: 1,
+                }));
+            })
+            .catch(() => {
+                setStudent(() => ({
+                    students: [],
+                    loadStatus: -1,
+                }));
+            })
+    }
+
+    useEffect(() => {
+        loadStudents();
+    }, [])
+
     return (
         <div className="flex flex-row">
             <div className="w-auto bg-blue-400">
@@ -19,180 +104,45 @@ export default function DashboardStudent() {
                             </h4>
                             <h1><AddStudent /></h1>
                         </div>
-                        <div className="flex flex-col">
-                            <div className="grid grid-cols-3 rounded-sm bg-gray-300 dark:bg-meta-4 sm:grid-cols-6">
-                                <div className="p-2.5 xl:p-5">
-                                    <h5 className="text-sm font-medium uppercase xsm:text-base">Name</h5>
+                        <div className="overflow-x-auto">
+                            { students.loadStatus === 0 && <LoadingCard /> }
+                            { students.loadStatus === -1 && (
+                                <div className="text-center">
+                                    <p style={{ color: 'red' }}>Failed to load students.</p>
+                                    <button className="mt-2" onClick={() => loadStudents()}>Retry</button>
                                 </div>
-                                <div className="p-2.5 text-center xl:p-5">
-                                    <h5 className="text-sm font-medium uppercase xsm:text-base">NRP</h5>
-                                </div>
-                                <div className="p-2.5 text-center xl:p-5">
-                                    <h5 className="text-sm font-medium uppercase xsm:text-base">Email</h5>
-                                </div>
-                                <div className="hidden p-2.5 text-center sm:block xl:p-5">
-                                    <h5 className="text-sm font-medium uppercase xsm:text-base">Title</h5>
-                                </div>
-                                <div className="hidden p-2.5 text-center sm:block xl:p-5">
-                                    <h5 className="text-sm font-medium uppercase xsm:text-base">Status</h5>
-                                </div>
-                                <div className="hidden p-2.5 text-center sm:block xl:p-5">
-                                    <h5 className="text-sm font-medium uppercase xsm:text-base">Action</h5>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-                                <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                                    <div className="flex-shrink-0">
-                                        {/*<img src="./images/brand/brand-01.svg" alt="Brand"/>*/}
-                                        {/*foto?*/}
-                                    </div>
-                                    <p className="hidden font-medium text-black sm:block">
-                                        Sally Kartika Sari
-                                    </p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-black">3120550010</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-meta-3">sally@gmail.com</p>
-                                </div>
-
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-black">SISTEM E-CATERING (STUDI KASUS DI JN RESTO)</p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-green-400"> Active
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                                    <EditStudent />
-                                    <DeleteStudent />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-                                <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                                    <div className="flex-shrink-0">
-                                        {/*<img src="./images/brand/brand-02.svg" alt="Brand"/>*/}
-                                    </div>
-                                    <p className="font-medium hidden text-black sm:block">Shofi Widuri</p>
-                                </div>
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-black">2103197016</p>
-                                </div>
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-meta-3">shofi@gmail.com</p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-black">APLIKASI KOMUNITAS YUK NGAJI MOJOKERTO
-                                        BERBASIS WEB DAN MOBILE
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-green-400"> Active
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                                    <EditStudent />
-                                    <DeleteStudent />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-                                <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                                    <div className="flex-shrink-0">
-                                        {/*<img src="./images/brand/brand-03.svg" alt="Brand"/>*/}
-                                    </div>
-                                    <p className="hidden font-medium text-black sm:block">Alhamdi Ferdiawan Bahri</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-black">3120550056</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-meta-3">alhamdi@gmail.com</p>
-                                </div>
-
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-black">APLIKASI PENCATATAN KEUANGAN
-                                        DI SWALAYAN EL-MALIK SUMENEP
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-red-600"> Inactive
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                                    <EditStudent />
-                                    <DeleteStudent />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-6">
-                                <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                                    <div className="flex-shrink-0">
-                                        {/*<img src="./images/brand/brand-04.svg" alt="Brand"/>*/}
-                                    </div>
-                                    <p className="hidden font-medium text-black sm:block">Mika Handayani</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-black">3120550006</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-meta-3">mika@gmail.com</p>
-                                </div>
-
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-black">SISTEM INFORMASI PENYEWAAN GEDUNG PADA
-                                        GEDUNG SERBAGUNA SUKO BERBASIS WEB
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-green-400"> Active
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                                    <EditStudent />
-                                    <DeleteStudent />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-3 sm:grid-cols-6">
-                                <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                                    <div className="flex-shrink-0">
-                                        {/*<img src="./images/brand/brand-05.svg" alt="Brand"/>*/}
-                                    </div>
-                                    <p className="hidden font-medium text-black sm:block">Toimul Setyo Andri</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-black">2103197141</p>
-                                </div>
-
-                                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                                    <p className="font-medium text-meta-3">toimulsetyo@gmail.com</p>
-                                </div>
-
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-black">APLIKASI SURVEY ONLINE MENGGUNAKAN
-                                        METODE COLLABORATIVE FILTERING
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                                    <p className="font-medium text-red-700"> Inactive
-                                    </p>
-                                </div>
-                                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                                    <EditStudent />
-                                    <DeleteStudent />
-                                </div>
-                            </div>
+                            )}
+                            { students.loadStatus === 1 && (
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-300 dark:bg-meta-4">
+                                    <tr>
+                                        <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Name</th>
+                                        <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">NRP</th>
+                                        <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Email</th>
+                                        <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Title</th>
+                                        <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Status</th>
+                                        <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-stroke dark:divide-strokedark">
+                                    {
+                                        students.students.map((d, i) => (
+                                            <tr key={i}>
+                                                <td className="p-2.5 xl:p-5">{d.name}</td>
+                                                <td className="p-2.5 xl:p-5">{d.nrp}</td>
+                                                <td className="p-2.5 xl:p-5">{d.email}</td>
+                                                <td className="p-2.5 xl:p-5">{d.title}</td>
+                                                <td className={"p-2.5 xl:p-5 " + (d.status === 'Inactive' ? 'text-red-600' : '')}>{d.status}</td>
+                                                <td className="p-2.5 xl:p-5">
+                                                    <EditStudent />
+                                                    <DeleteStudent />
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                    </tbody>
+                                </table>
+                            )}
                         </div>
                     </div>
                 </div>
