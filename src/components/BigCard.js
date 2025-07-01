@@ -4,6 +4,7 @@ import {data} from "autoprefixer";
 import LoadingCard from "./LoadingCard";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 export default function BigCard() {
     const defaultProjects = [
@@ -145,7 +146,7 @@ export default function BigCard() {
 
     return (
         <div className="">
-            <div className="py-20 px-8 lg:p-40 rounded-lg shadow-lg">
+            <div className="rounded-lg shadow-lg">
                 <div className="flex flex-grow">
                     <div className="basis-5/6">
                         <div className="mb-3">
@@ -291,9 +292,9 @@ export default function BigCard() {
                         {
                             projects.projects.map((p) => (
                                 <div key={p.id} className="max-w-sm rounded overflow-hidden shadow-lg glass">
-                                    <a href={`/detailproject/${p.id}`}>
+                                    <Link to={`/detailproject/${p.id}`}>
                                         <img className="w-full" src={p.photo} alt="Sunset in the mountains" />
-                                    </a>
+                                    </Link>
                                     <div className="px-6 py-4">
                                         <div className="font-bold text-xl mb-2 ">{p.title}</div>
                                         <p className="text-gray-700 text-base">

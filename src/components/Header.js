@@ -12,7 +12,7 @@ export default function Header() {
     const user = useSelector(state => state.user);
 
     return (
-        <nav className="flex justify-between flex-wrap bg-gray-100 p-6">
+        <nav className="flex justify-between flex-wrap bg-gray-100 px-6 py-2 sticky top-0 z-[100]">
             <div className="flex items-center flex-shrink-0 text-black mr-6">
                 <img src="https://upload.wikimedia.org/wikipedia/id/4/44/Logo_PENS.png" width="50" height="50" alt=""/>
                 <a href="/home"><span className="text-2xl font-sans">-Etalase</span></a>
@@ -36,7 +36,7 @@ export default function Header() {
                             <MenuItems
                                 transition
                                 anchor="bottom end"
-                                className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                className="absolute right-0 z-[101] mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
                                 <MenuItem>
                                     <div className="py-1" role="none">

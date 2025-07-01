@@ -9,7 +9,7 @@ import Dashboard from "./pages/admin/dashboard";
 import DashboardStudent from "./pages/admin/dashboard-student";
 import DashboardTechnology from "./pages/admin/dashboard-technologies";
 import DashboardProjects from "./pages/admin/dashboard-projects";
-import DashboardLecturer from "./pages/admin/dashboard-lecturer/dashboard-lecturer";
+import DashboardLecturer from "./pages/admin/dashboard-lecturer";
 
 function App() {
   return (
