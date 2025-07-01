@@ -1,10 +1,83 @@
 import AddLecturer from "./dashboard-lecturer/add-lecturer";
 import EditLecturer from "./dashboard-lecturer/edit-lecturer";
 import DeleteLecturer from "./dashboard-lecturer/delete-lecturer";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AdminLayout from "../../layouts/AdminLayout";
+import LoadingCard from "../../components/LoadingCard";
+import EditStudent from "./dashboard-student/edit-student";
+import DeleteStudent from "./dashboard-student/delete-student";
 
-export default function dashboardLecturer() {
+export default function DashboardLecturer() {
+    const [lecturers, setLecturers] = useState({
+        lecturers: [],
+        loadStatus: 0,
+    });
+
+    const mockGetLecturers = () => {
+        const temp = [
+            {
+                name: 'Rengga Asmara, S.Kom, M.T',
+                nip: '198105082005011002',
+                email: 'email@email.com'
+            },
+            {
+                name: 'Irma Wulandari, S.Si, M.Sc',
+                nip: '198010032015042001',
+                email: 'email@email.com'
+            },
+            {
+                name: 'Hero Yudo Martono, ST, MT',
+                nip: '197811032005011002',
+                email: 'email@email.com'
+            },
+            {
+                name: 'Weny Mistarika Rahmawati, S.Kom, M.Kom, M.Sc.',
+                nip: '199104032022032008',
+                email: 'email@email.com'
+            },
+            {
+                name: 'Ira Prasetyaningrum, S.Si., M.T.',
+                nip: '198005292008122005',
+                email: 'email@email.com'
+            },
+        ];
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (Math.random() < 0.8) {
+                    resolve({
+                        data: temp
+                    });
+                } else {
+                    reject(new Error('Fetch failed'));
+                }
+            }, 2000);
+        });
+    }
+
+    const loadLecturers = () => {
+        setLecturers(() => ({
+            lecturers: [],
+            loadStatus: 0,
+        }));
+        mockGetLecturers()
+            .then(res => {
+                setLecturers(() => ({
+                    lecturers: res.data,
+                    loadStatus: 1,
+                }));
+            })
+            .catch(() => {
+                setLecturers(() => ({
+                    lecturers: [],
+                    loadStatus: -1,
+                }));
+            })
+    }
+
+    useEffect(() => {
+        loadLecturers();
+    }, [])
+
     return (
         <AdminLayout>
             <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 ml-40">
@@ -14,129 +87,41 @@ export default function dashboardLecturer() {
                     </h4>
                     <h1><AddLecturer /></h1>
                 </div>
-                <div className="flex flex-col">
-                    <div className="grid grid-cols-3 rounded-sm bg-gray-300 dark:bg-meta-4 sm:grid-cols-4">
-                        <div className="p-2.5 xl:p-5">
-                            <h5 className="text-sm font-medium uppercase xsm:text-base">Name</h5>
+                <div className="overflow-x-auto">
+                    { lecturers.loadStatus === 0 && <LoadingCard /> }
+                    { lecturers.loadStatus === -1 && (
+                        <div className="text-center">
+                            <p style={{ color: 'red' }}>Failed to load lecturers.</p>
+                            <button className="mt-2" onClick={() => loadLecturers()}>Retry</button>
                         </div>
-                        <div className="p-2.5 text-center xl:p-5">
-                            <h5 className="text-sm font-medium uppercase xsm:text-base">NIP</h5>
-                        </div>
-                        <div className="p-2.5 text-center xl:p-5">
-                            <h5 className="text-sm font-medium uppercase xsm:text-base">Email</h5>
-                        </div>
-                        <div className="hidden p-2.5 text-center sm:block xl:p-5">
-                            <h5 className="text-sm font-medium uppercase xsm:text-base">Action</h5>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-4">
-                        <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
-                                {/*<img src="./images/brand/brand-01.svg" alt="Brand"/>*/}
-                                {/*foto?*/}
-                            </div>
-                            <p className="hidden font-medium text-black sm:block">
-                                Rengga Asmara, S.Kom, M.T
-                            </p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-black">198105082005011002</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-meta-3">email@gmail.com</p>
-                        </div>
-                        <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                            <EditLecturer />
-                            <DeleteLecturer />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-4">
-                        <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
-                                {/*<img src="./images/brand/brand-02.svg" alt="Brand"/>*/}
-                            </div>
-                            <p className="font-medium hidden text-black sm:block">Irma Wulandari, S.Si, M.Sc</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-black">198010032015042001</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-meta-3">email@gmail.com</p>
-                        </div>
-                        <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                            <EditLecturer />
-                            <DeleteLecturer />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-4">
-                        <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
-                                {/*<img src="./images/brand/brand-03.svg" alt="Brand"/>*/}
-                            </div>
-                            <p className="hidden font-medium text-black sm:block">Hero Yudo Martono, ST, MT</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-black">197811032005011002</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-meta-3">email@gmail.com</p>
-                        </div>
-                        <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                            <EditLecturer />
-                            <DeleteLecturer />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 border-b border-stroke dark:border-strokedark sm:grid-cols-4">
-                        <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
-                                {/*<img src="./images/brand/brand-04.svg" alt="Brand"/>*/}
-                            </div>
-                            <p className="hidden font-medium text-black sm:block">Weny Mistarika Rahmawati, S.Kom, M.Kom, M.Sc.</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-black">199104032022032008</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-meta-3">email@gmail.com</p>
-                        </div>
-                        <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                            <EditLecturer />
-                            <DeleteLecturer />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 sm:grid-cols-4">
-                        <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
-                                {/*<img src="./images/brand/brand-05.svg" alt="Brand"/>*/}
-                            </div>
-                            <p className="hidden font-medium text-black sm:block">Ira Prasetyaningrum, S.Si., M.T.</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-black">198005292008122005</p>
-                        </div>
-
-                        <div className="flex items-center justify-center p-2.5 xl:p-5">
-                            <p className="font-medium text-meta-3">email@gmail.com</p>
-                        </div>
-                        <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5 gap-10">
-                            <EditLecturer />
-                            <DeleteLecturer />
-                        </div>
-                    </div>
+                    )}
+                    { lecturers.loadStatus === 1 && (
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-300 dark:bg-meta-4">
+                            <tr>
+                                <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Name</th>
+                                <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">NIP</th>
+                                <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Email</th>
+                                <th className="p-2.5 xl:p-5 text-sm font-medium uppercase text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody className="divide-y divide-stroke dark:divide-strokedark">
+                            {
+                                lecturers.lecturers.map((d, i) => (
+                                    <tr key={i}>
+                                        <td className="p-2.5 xl:p-5">{d.name}</td>
+                                        <td className="p-2.5 xl:p-5">{d.nip}</td>
+                                        <td className="p-2.5 xl:p-5">{d.email}</td>
+                                        <td className="p-2.5 xl:p-5">
+                                            <EditLecturer />
+                                            <DeleteLecturer />
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                            </tbody>
+                        </table>
+                    )}
                 </div>
             </div>
         </AdminLayout>

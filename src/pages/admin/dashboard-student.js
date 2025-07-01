@@ -72,6 +72,10 @@ export default function DashboardStudent() {
     }
 
     const loadStudents = () => {
+        setStudent(() => ({
+            students: [],
+            loadStatus: 0,
+        }));
         mockGetStudents()
             .then(res => {
                 setStudent(() => ({
