@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faUserTie, faUserGroup, faServer, faComputer, faHouse, faDoorOpen} from '@fortawesome/free-solid-svg-icons'
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default function Sidebar() {
     return (
@@ -20,53 +21,53 @@ export default function Sidebar() {
                    className="fixed top-0 left-0 z-40 w-48 h-screen transition-transform -translate-x-full sm:translate-x-0"
                    aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-white shadow-2xl">
-                    <a href="/" className="flex items-center pl-2.5 mb-5">
+                    <Link to="/" className="flex items-center pl-2.5 mb-5">
                         <img src="https://upload.wikimedia.org/wikipedia/id/4/44/Logo_PENS.png" alt="logo" className="object-cover h-10 w-10"/>
                         <span
                             className="ml-1 self-center text-xl font-semibold whitespace-nowrap dark:text-black">SIM ETAPENS</span>
-                    </a>
+                    </Link>
                     <ul className="space-y-2 font-medium">
                         <li>
-                            <a href="/dashboard"
+                            <Link to="/dashboard"
                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-blue-400 group">
                                 <FontAwesomeIcon icon={faHouse} />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/dashboard-student"
+                            <Link to="/dashboard-student"
                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-blue-400 group">
                                 <FontAwesomeIcon icon={faUserGroup} />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Students</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/dashboard-lecturers"
+                            <Link to="/dashboard-lecturers"
                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-blue-400 group">
                                 <FontAwesomeIcon icon={faUserTie} />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Lecturers</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/dashboard-project"
+                            <Link to="/dashboard-project"
                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-blue-400 group">
                                 <FontAwesomeIcon icon={faComputer} />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Projects</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/dashboard-technology"
+                            <Link to="/dashboard-technology"
                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-blue-400 group">
                                 <FontAwesomeIcon icon={faServer} />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Technologies</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/"
+                            <Link to="/"
                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-red-400 group">
                                 <FontAwesomeIcon icon={faDoorOpen} />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Logout</span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
