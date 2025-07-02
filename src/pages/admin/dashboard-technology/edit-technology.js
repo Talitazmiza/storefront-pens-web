@@ -10,7 +10,7 @@ export default function addTechnology() {
             <dialog id="my_modal_11" className="modal rounded-lg">
                 <div>
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Edit Tecnhnology</h3>
+                        <h3 className="font-bold text-lg">Edit Technology</h3>
                         {/*<p className="py-4">Press ESC key or click the button below to close</p>*/}
                         <div className="modal-action p-10">
                             <form method="dialog">
