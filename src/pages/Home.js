@@ -1,15 +1,12 @@
 import Header from "../components/Header";
 import BigCard from "../components/BigCard";
 import Footer from "../components/Footer";
+import MainLayout from "../layouts/MainLayout";
 
 export default function Home() {
     return (
-        <div className="">
-                <div className="">
-                    <Header />
-                    <BigCard />
-                    <Footer />
-                </div>
-        </div>
+        <MainLayout>
+            <BigCard />
+        </MainLayout>
     );
 }

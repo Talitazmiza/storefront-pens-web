@@ -1,31 +1,175 @@
 import Search from "./Search";
+import {useEffect, useState} from "react";
+import {data} from "autoprefixer";
+import LoadingCard from "./LoadingCard";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 export default function BigCard() {
+    const defaultProjects = [
+        {
+            id: '',
+            title: '',
+            abstract: '',
+            photo: '',
+            technologies: [
+                {
+                    id: '',
+                    name: '',
+                }
+            ]
+        }
+    ];
+    const [projects, setProjects] = useState({
+        projects: defaultProjects,
+        loadStatus: 0,
+    });
+
+    /**
+     * Mocking axios.
+     * TODO: Delete this when in real case usage
+     * @returns {Promise<unknown>}
+     */
+    const mockAxiosProjects = () => {
+        const projects = [
+            {
+                id: 12,
+                title: "SISTEM E-CATERING (STUDI KASUS DI JN RESTO)",
+                abstract: "JN Resto adalah suatu badan usaha bisnis catering yang bergerak dibidang penyedia makanan pada tahun 2022.",
+                photo: "/assets/sally-jnresto2.png",
+                technologies: [
+                    { id: 1, name: "Mobile" },
+                    { id: 2, name: "Web App" },
+                    { id: 3, name: "Codeigniter" },
+                ],
+            },
+            {
+                id: 31,
+                title: "APLIKASI KOMUNITAS YUK NGAJI MOJOKERTO BERBASIS WEB DAN MOBILE",
+                abstract: "Yuk Ngaji Mojokerto adalah komunitas dari Yuk Ngaji yang menghimpun potensi lintas generasi dan profesi untuk berbagi ilmu dan inspirasi kebaikan.",
+                photo: "/assets/shofi-yukngaji.png",
+                technologies: [
+                    { id: 2, name: "Web App" },
+                    { id: 4, name: "Mobile App" },
+                    { id: 5, name: "Vuejs" },
+                ],
+            },
+            {
+                id: 87,
+                title: "APLIKASI PENCATATAN KEUANGAN DI SWALAYAN EL-MALIK SUMENEP",
+                abstract: "Aplikasi Pencatatan Keuangan ini merupakan sebuah sistem yang digunakan untuk mempermudah karyawan swalayan dalam melakukan pencatatan keuangan transaksi baik pemasukan maupun pengeluaran.",
+                photo: "/assets/alhamdi-swalayan.png",
+                technologies: [
+                    { id: 6, name: "Laravel" },
+                    { id: 2, name: "Web App" },
+                    { id: 5, name: "Vuejs" },
+                ],
+            },
+            {
+                id: 54,
+                title: "SISTEM INFORMASI PENYEWAAN GEDUNG PADA GEDUNG SERBAGUNA SUKO BERBASIS WEB",
+                abstract: "Gedung serbaguna merupakan sarana fasilitas yang dapat digunakan masyarakat sebagai tempat untuk menunjang kegiatan masyarakat yang dapat dihadiri banyak orang baik dalam melakukan kegiatan seni, olahraga, acara adat dan lainya.",
+                photo: "/assets/mika-sewagedung.png",
+                technologies: [
+                    { id: 4, name: "Mobile App" },
+                    { id: 7, name: "Flutter" },
+                    { id: 5, name: "Vuejs" },
+                ],
+            },
+            {
+                id: 23,
+                title: "APLIKASI SURVEY ONLINE MENGGUNAKAN METODE COLLABORATIVE FILTERING",
+                abstract: "Aplikasi Aplikasi Survey Menggunakan Metode Rekomendasi Collaborative Filtering adalah aplikasi yang memanfaatkan teknologi android dan web .",
+                photo: "/assets/toimul-survey.png",
+                technologies: [
+                    { id: 2, name: "Web App" },
+                    { id: 8, name: "MySQL" },
+                    { id: 3, name: "Codeigniter" },
+                ],
+            },
+            {
+                id: 68,
+                title: "APLIKASI PEMESANAN PRODUK ONLINE BERBASIS WEBSITE DAN ANDROID ORGANISASI KARANG TARUNA PERRENG BHIRU DESA KASENGAN KEC. MANDING KAB. SUMENEP",
+                abstract: "Karang Taruna adalah organisasi sosial wadah pengembangan generasi muda yang tumbuh dan berkembang atas dasar kesadaran dan tanggung jawab sosial dari, oleh dan untuk masyarakat.",
+                photo: "/assets/siti-pemesanan.png",
+                technologies: [
+                    { id: 9, name: "Framework" },
+                    { id: 4, name: "Mobile App" },
+                    { id: 8, name: "MySQL" },
+                ],
+            },
+        ];
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (Math.random() < 0.8) {
+                    resolve({
+                        data: projects
+                    });
+                } else {
+                    reject(new Error('Fetch failed'));
+                }
+            }, 2000);
+        });
+    }
+
+    const loadProjects = () => {
+        setProjects(() => {
+            return {
+                projects: defaultProjects,
+                loadStatus: 0,
+            };
+        });
+
+        // TODO: This is a mock. Change to axios later
+        mockAxiosProjects()
+            .then((res) => {
+                setProjects(() => ({
+                    projects: res.data,
+                    loadStatus: 1,
+                }));
+            })
+            .catch(() => {
+                setProjects(() => {
+                    return {
+                        projects: defaultProjects,
+                        loadStatus: -1,
+                    };
+                })
+            })
+    }
+
+    useEffect(() => {
+        loadProjects();
+    }, []);
+
     return (
         <div className="">
-            <div className="p-40 rounded-lg shadow-lg">
+            <div className="rounded-lg shadow-lg">
                 <div className="flex flex-grow">
-                    <div className="basis-3/4">
+                    <div className="basis-5/6">
                         <div className="mb-3">
-                            <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-                                <input
-                                    type="search"
-                                    className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    aria-describedby="button-addon3"/>
-
-                                <button
-                                    className="relative z-[2] rounded-r border-2 border-primary px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
-                                    type="button"
-                                    id="button-addon3">
-                                    Search
-                                </button>
-                            </div>
+                            <form>
+                                <div className="inline-flex rounded-full overflow-hidden bg-gray-200 w-full">
+                                    <div className="py-1 pl-3 pr-2">
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                    </div>
+                                    <input
+                                        className="bg-transparent w-full outline-none px-1"
+                                        placeholder="Cari judul proyek akhir"
+                                    ></input>
+                                    <button
+                                        className="bg-gray-400 px-3 py-1"
+                                    >
+                                        Cari
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div className="basis-1/4">
-                        <div className="space-y-2">
+                    <div className="basis-1/6">
+                        <div className="">
                             {/*Button trigger vertically centered scrollable modal*/}
                             <Search />
                         </div>
@@ -133,224 +277,44 @@ export default function BigCard() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-4 gap-4 mt-32">
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/sally-jnresto2.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">SISTEM E-CATERING (STUDI KASUS DI JN RESTO)</div>
-                            <p className="text-gray-700 text-base">
-                                JN Resto adalah suatu badan usaha bisnis catering yang bergerak dibidang penyedia makanan pada tahun 2022.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Web App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Codeigniter</span>
-                        </div>
+
+                {projects.loadStatus === 0 && <LoadingCard />}
+
+                {projects.loadStatus === -1 && (
+                    <div className="text-center">
+                        <p style={{ color: 'red' }}>Failed to load projects.</p>
+                        <button className="mt-2" onClick={() => loadProjects()}>Retry</button>
                     </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/shofi-yukngaji.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">APLIKASI KOMUNITAS YUK NGAJI MOJOKERTO BERBASIS WEB DAN MOBILE</div>
-                            <p className="text-gray-700 text-base">
-                                Yuk Ngaji Mojokerto adalah komunitas dari Yuk Ngaji yang
-                                menghimpun potensi lintas generasi dan profesi untuk berbagi ilmu dan
-                                inspirasi kebaikan.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Web App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Vuejs</span>
-                        </div>
+                )}
+
+                {projects.loadStatus === 1 && (
+                    <div className="grid grid-cols-3 gap-4 mt-32">
+                        {
+                            projects.projects.map((p) => (
+                                <div key={p.id} className="max-w-sm rounded overflow-hidden shadow-lg glass">
+                                    <Link to={`/detailproject/${p.id}`}>
+                                        <img className="w-full" src={p.photo} alt="Sunset in the mountains" />
+                                    </Link>
+                                    <div className="px-6 py-4">
+                                        <div className="font-bold text-xl mb-2 ">{p.title}</div>
+                                        <p className="text-gray-700 text-base">
+                                            {p.abstract}
+                                        </p>
+                                    </div>
+                                    <div className="px-6 pt-4 pb-2">
+                                        {
+                                            !!p.technologies
+                                                ? p.technologies.map((t) => (
+                                                    <span key={t.id} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{t.name}</span>
+                                                ))
+                                                : null
+                                        }
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/alhamdi-swalayan.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">APLIKASI PENCATATAN KEUANGAN DI SWALAYAN EL-MALIK SUMENEP</div>
-                            <p className="text-gray-700 text-base">
-                                Aplikasi Pencatatan Keuangan ini merupakan sebuah sistem yang
-                                digunakan untuk mempermudah karyawan swalayan dalam melakukan
-                                pencatatan keuangan transaksi baik pemasukan maupun pengeluaran.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Laravel</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Web App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Vuejs</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/mika-sewagedung.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">SISTEM INFORMASI PENYEWAAN GEDUNG PADA
-                                GEDUNG SERBAGUNA SUKO BERBASIS WEB
-                            </div>
-                            <p className="text-gray-700 text-base">
-                                Gedung serbaguna merupakan sarana fasilitas yang dapat digunakan
-                                masyarakat sebagai tempat untuk menunjang kegiatan masyarakat yang dapat
-                                dihadiri banyak orang baik dalam melakukan kegiatan seni, olahraga, acara
-                                adat dan lainya.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Flutter</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Vuejs</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/toimul-survey.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">APLIKASI SURVEY ONLINE MENGGUNAKAN METODE COLLABORATIVE FILTERING
-                            </div>
-                            <p className="text-gray-700 text-base">
-                                Aplikasi Aplikasi Survey Menggunakan Metode Rekomendasi
-                                Collaborative Filtering adalah aplikasi yang memanfaatkan teknologi
-                                android dan web .
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Web App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">MySQL</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Codeigniter</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/siti-pemesanan.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">APLIKASI PEMESANAN PRODUK ONLINE BERBASIS WEBSITE DAN  ANDROID ORGANISASI KARANG TARUNA PERRENG BHIRU DESA KASENGAN
-                                KEC. MANDING KAB. SUMENEP
-                            </div>
-                            <p className="text-gray-700 text-base">
-                                Karang Taruna adalah organisasi sosial wadah pengembangan generasi muda yang tumbuh dan berkembang atas dasar kesadaran dan tanggung jawab sosial dari, oleh dan untuk masyarakat.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Framework</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">MySQL</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/shofi-yukngaji.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">APLIKASI KOMUNITAS YUK NGAJI MOJOKERTO BERBASIS WEB DAN MOBILE</div>
-                            <p className="text-gray-700 text-base">
-                                Yuk Ngaji Mojokerto adalah komunitas dari Yuk Ngaji yang
-                                menghimpun potensi lintas generasi dan profesi untuk berbagi ilmu dan
-                                inspirasi kebaikan.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Web App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Vuejs</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/mika-sewagedung.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">SISTEM INFORMASI PENYEWAAN GEDUNG PADA
-                                GEDUNG SERBAGUNA SUKO BERBASIS WEB
-                            </div>
-                            <p className="text-gray-700 text-base">
-                                Gedung serbaguna merupakan sarana fasilitas yang dapat digunakan
-                                masyarakat sebagai tempat untuk menunjang kegiatan masyarakat yang dapat
-                                dihadiri banyak orang baik dalam melakukan kegiatan seni, olahraga, acara
-                                adat dan lainya.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Flutter</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Vuejs</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/mika-sewagedung.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">SISTEM INFORMASI PENYEWAAN GEDUNG PADA
-                                GEDUNG SERBAGUNA SUKO BERBASIS WEB
-                            </div>
-                            <p className="text-gray-700 text-base">
-                                Gedung serbaguna merupakan sarana fasilitas yang dapat digunakan
-                                masyarakat sebagai tempat untuk menunjang kegiatan masyarakat yang dapat
-                                dihadiri banyak orang baik dalam melakukan kegiatan seni, olahraga, acara
-                                adat dan lainya.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Flutter</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Vuejs</span>
-                        </div>
-                    </div>
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                        <a href="/detailproject">
-                            <img className="w-full" src='/assets/sally-jnresto2.png' alt="Sunset in the mountains" />
-                        </a>
-                        <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-2 ">SISTEM E-CATERING (STUDI KASUS DI JN RESTO)</div>
-                            <p className="text-gray-700 text-base">
-                                JN Resto adalah suatu badan usaha bisnis catering yang bergerak dibidang penyedia makanan pada tahun 2022.
-                            </p>
-                        </div>
-                        <div className="px-6 pt-4 pb-2">
-                    <span
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Mobile</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Web App</span>
-                            <span
-                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Codeigniter</span>
-                        </div>
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     );
