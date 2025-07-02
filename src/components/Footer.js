@@ -37,97 +37,97 @@ export default function Footer() {
                     </div>
 
                     {/*2nd links*/}
-                    <div className="mb-6">
-                        <h5
-                            className="mb-2.5 font-bold uppercase text-neutral-800 dark:text-neutral-200">
-                            Links
-                        </h5>
+                    {/*<div className="mb-6">*/}
+                    {/*    <h5*/}
+                    {/*        className="mb-2.5 font-bold uppercase text-neutral-800 dark:text-neutral-200">*/}
+                    {/*        Links*/}
+                    {/*    </h5>*/}
 
-                        <ul className="mb-0 list-none">
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 1</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 2</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 3</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 4</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
+                    {/*    <ul className="mb-0 list-none">*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 1</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 2</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 3</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 4</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*    </ul>*/}
+                    {/*</div>*/}
 
                     {/*3rd links*/}
-                    <div className="mb-6">
-                        <h5
-                            className="mb-2.5 font-bold uppercase text-neutral-800 dark:text-neutral-200">
-                            Links
-                        </h5>
+                    {/*<div className="mb-6">*/}
+                    {/*    <h5*/}
+                    {/*        className="mb-2.5 font-bold uppercase text-neutral-800 dark:text-neutral-200">*/}
+                    {/*        Links*/}
+                    {/*    </h5>*/}
 
-                        <ul className="mb-0 list-none">
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 1</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 2</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 3</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 4</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
+                    {/*    <ul className="mb-0 list-none">*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 1</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 2</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 3</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 4</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*    </ul>*/}
+                    {/*</div>*/}
 
                     {/*4th links*/}
-                    <div className="mb-6">
-                        <h5
-                            className="mb-2.5 font-bold uppercase text-neutral-800 dark:text-neutral-200">
-                            Links
-                        </h5>
+                    {/*<div className="mb-6">*/}
+                    {/*    <h5*/}
+                    {/*        className="mb-2.5 font-bold uppercase text-neutral-800 dark:text-neutral-200">*/}
+                    {/*        Links*/}
+                    {/*    </h5>*/}
 
-                        <ul className="mb-0 list-none">
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 1</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 2</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 3</a
-                                >
-                            </li>
-                            <li>
-                                <a href="#" className="text-neutral-800 dark:text-neutral-200"
-                                >Link 4</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
+                    {/*    <ul className="mb-0 list-none">*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 1</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 2</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 3</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*        <li>*/}
+                    {/*            <a href="#" className="text-neutral-800 dark:text-neutral-200"*/}
+                    {/*            >Link 4</a*/}
+                    {/*            >*/}
+                    {/*        </li>*/}
+                    {/*    </ul>*/}
+                    {/*</div>*/}
                 </div>
             </div>
 
